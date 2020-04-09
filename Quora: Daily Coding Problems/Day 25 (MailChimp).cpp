@@ -4,7 +4,7 @@ For example, given the array [3, 7, 8, 3, 6, 1], you should return 3, since the 
 
 Can you do this using just one pass through the array?
 
-``` C
+```
 /*
 This function take input the arrary and the size of the array as n
 This solution is O(n).
