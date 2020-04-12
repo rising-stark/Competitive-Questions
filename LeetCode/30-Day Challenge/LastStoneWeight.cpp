@@ -1,4 +1,4 @@
-'''
+```
 /*
 https://leetcode.com/explore/featured/card/30-day-leetcoding-challenge/529/week-2/3297/
 
@@ -27,7 +27,7 @@ Note:
 class Solution {
 public:
     int lastStoneWeight(vector<int>& arr) {
-		// This always makes a max_heap
+	// This always makes a max_heap
         priority_queue<int> p;
         for(int x:arr){
 			p.push(x);
@@ -46,4 +46,4 @@ public:
 		return p.top();
     }
 };
-'''
+```
