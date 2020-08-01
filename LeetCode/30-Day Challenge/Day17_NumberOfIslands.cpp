@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/530/week-3/3302/
 
 Given a 2d grid map of '1's (land) and '0's (water), count the number of islands.
@@ -13,6 +14,7 @@ Input:
 00000
 
 Output: 1
+
 Example 2:
 
 Input:
@@ -23,7 +25,7 @@ Input:
 
 Output: 3
 
-```
+*/
 class Solution {
 public:
     bool isSafe(vector<vector<char>>& arr, vector<vector<int>>& dp, int i, int j, int m, int n){
@@ -92,4 +94,3 @@ public:
         return c;
     }
 };
-```
