@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/530/week-3/3301/
 
 Given a string containing only three types of characters: '(', ')' and '*', write a function to check whether this string is valid.
@@ -23,8 +24,7 @@ Output: True
 
 Note:
 The string size will be in the range [1, 100].
-
-```
+*/
 class Solution {
     bool res(string s, int i, int c){
         if(c<0){
@@ -89,4 +89,3 @@ public:
         return false;
     }
 };
-```
