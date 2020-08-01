@@ -1,4 +1,3 @@
-```
 /*
 https://leetcode.com/explore/featured/card/30-day-leetcoding-challenge/529/week-2/3290/
 
@@ -26,14 +25,14 @@ Note:
 The number of nodes in the given list will be between 1 and 100.
 */
 
-/**
+/*
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
  *     ListNode *next;
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
- */
+*/
  
 class Solution {
 public:
@@ -52,4 +51,3 @@ public:
         return temp;
     }
 };
-```
