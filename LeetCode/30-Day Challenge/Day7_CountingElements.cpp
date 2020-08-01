@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3286/
 
 Given an integer array arr, count element x such that x + 1 is also in arr.
@@ -29,7 +30,7 @@ Constraints:
 1 <= arr.length <= 1000
 0 <= arr[i] <= 1000
 
-```
+*/
 // This is O(nLogn) solution using sorting and keeping track of elements till they are same and then adiing them all if x+1 appears.
 class Solution {
 public:
@@ -73,5 +74,3 @@ public:
         return c;
     }
 };
-
-```
