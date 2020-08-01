@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/529/week-2/3299/
 
 You are given a string s containing lowercase English letters, and a matrix shift, where shift[i] = [direction, amount]:
@@ -37,7 +38,7 @@ shift[i].length == 2
 0 <= shift[i][0] <= 1
 0 <= shift[i][1] <= 100
 
-```
+*/
 
 class Solution {
 public:
@@ -60,5 +61,3 @@ public:
         return res;
     }
 };
-
-```
