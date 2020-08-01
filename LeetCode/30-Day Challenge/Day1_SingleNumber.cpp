@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/featured/card/30-day-leetcoding-challenge/528/week-1/3283/
 
 Given a non-empty array of integers, every element appears twice except for one. Find that single one.
@@ -14,8 +15,8 @@ Example 2:
 
 Input: [4,1,2,1,2]
 Output: 4
+*/
 
-```
 class Solution {
 public:
     int singleNumber(vector<int>& arr) {
@@ -27,5 +28,3 @@ public:
         return x;
     }
 };
-
-```
