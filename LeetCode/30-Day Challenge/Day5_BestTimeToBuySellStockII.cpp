@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3287/
 
 Say you have an array prices for which the ith element is the price of a given stock on day i.
@@ -31,13 +32,14 @@ Constraints:
 1 <= prices.length <= 3 * 10 ^ 4
 0 <= prices[i] <= 10 ^ 4
 
+*/
 
-```
 /*
 This logic of just taking adjacent difference works because:
 1. Unlimmited no. of transactions are allowed.
 2. 3-1 is == 2-1 + 3-2
 */
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -48,5 +50,3 @@ public:
         return s;
     }
 };
-
-```
