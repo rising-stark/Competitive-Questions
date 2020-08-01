@@ -1,3 +1,4 @@
+/*
 https://leetcode.com/explore/featured/card/30-day-leetcoding-challenge/528/week-1/3284/
 
 Write an algorithm to determine if a number n is "happy".
@@ -15,8 +16,8 @@ Explanation:
 82 + 22 = 68
 62 + 82 = 100
 12 + 02 + 02 = 1
+*/
 
-```
 class Solution {
 public:
     bool res(int n, unordered_set<int> s){
@@ -40,4 +41,3 @@ public:
         return res(n,s);
     }
 };
-```
