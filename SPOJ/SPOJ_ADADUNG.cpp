@@ -2,13 +2,7 @@
 #define ll long long int
 #define pb push_back
 #define vi vector<int>
-#define vll vector<ll>
-#define vvi vector<vector<int> >
-#define vvll vector<vector<ll> >
-#define pii pair<int, int>
-#define pll pair<ll, ll>
-#define pis pair<int, string>
-#define psi pair<string, int>
+#define vii vector<vector<int> >
 #define ALL(x) x.begin(), x.end()
 #define maxx(a,b,c) max(a, max(b,c))
 #define minn(a,b,c) min(a, min(b,c))
@@ -20,11 +14,8 @@ string toBin(ll a);
 void printMat(int arr[], int n);
 void printMat(vector<int> arr, int n);
 void printMat(vector<vector<int> > arr, int n, int m);
-void printMat(vector<vector<ll> > arr, int n, int m);
 void printMat(vector<int> arr[], int n);
-void printMat(vector<ll> arr[], int n);
-void printMat(int arr[][2], int n, int m);
-void printMat(ll arr[][2], int n, int m);
+//void printMat(int arr[][], int n, int m);
 void printMap(unordered_map<int, int> mp);
 void printMap(unordered_map<ll, ll> mp);
 void printMap(unordered_map<char, int> mp);
@@ -71,20 +62,6 @@ void printMat(vector<int> arr[], int row, int col){
 	}cout<<endl;
 }
 void printMat(vector<vector<int> > arr, int row, int col){
-	for(int i=0;i<row;i++){
-		for(int j=0;j<col;j++){
-			cout<<arr[i][j]<<" ";
-		}cout<<endl;
-	}cout<<endl;
-}
-void printMat(vector<vector<ll> > arr, int row, int col){
-	for(int i=0;i<row;i++){
-		for(int j=0;j<col;j++){
-			cout<<arr[i][j]<<" ";
-		}cout<<endl;
-	}cout<<endl;
-}
-void printMat(ll arr[][2], int row, int col){
 	for(int i=0;i<row;i++){
 		for(int j=0;j<col;j++){
 			cout<<arr[i][j]<<" ";
@@ -195,69 +172,35 @@ void printSet(unordered_set<string> s){
 		cout<<(*it)<<" ";
 	}cout<<endl;
 }
-int main(){
-	/*ios_base::sync_with_stdio(false);
+int main()
+{
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
-	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/input.txt", "r", stdin);
-	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/output.txt", "w", stdout);
-	#endif*/
-	int t=1;
-	//scanf("%d", &t);
-	while(t--){
-		solve();
-	}
+	freopen("../input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	solve();
 	return 0;
 }
-
-vvll matmult(vvll res, vvll a, int m, int n){
-	vvll x(n, vll(n, 0));
-	int i,j,k;
-	for(i=0;i<n;i++){
-		for(j=0;j<n;j++){
-			for(k=0;k<n;k++){
-				x[i][j]=(x[i][j] + (res[i][k]*a[k][j])%m)%m;
-			}
-		}
-	}
-	return x;
-}
-
+ll dp[10001];
 void solve(){
-	while(1){
-		int d, n, m;
-		cin>>d>>n>>m;
-		if(d==0 && n==0 && m==0)
-			return;
-		vvll res(d, vll(d, 0));
-		vvll a(d, vll(d, 0));
-		vll b(d);
-		for(int i=0;i<d;i++){
-			cin>>a[0][i];
-			res[i][i]=1;
-			if(i>0){
-				a[i][i-1]=1;
-			}
-		}
-		for(int i=d-1;i>=0;i--){
-			cin>>b[i];
-		}
-		if(n<=d){
-			cout<<b[n-1]<<endl;
-			continue;
-		}
-		n-=d;
-		while(n>0){
-			if(n&1){
-				res=matmult(res, a, m, d);
-			}
-			n>>=1;
-			a=matmult(a, a, m, d);
-		}
-		ll ans=0;
-		for(int i=0;i<d;i++){
-			ans=(ans + (res[0][i]*b[i])%m)%m;
-		}
-		cout<<ans<<endl;
+	ll i, j, n;
+	int t;
+	//scanf("%d", &t);
+	cin>>t;
+	n=10001;
+	dp[2]=1;
+	dp[3]=2;
+	for(i=4;i<n;i++){
+		dp[i]=((i-1)*1LL*((dp[i-1]+dp[i-2])%mod))%mod;
 	}
+	cout<<t<<endl;
+	// while(t--){
+	// 	int n;
+	// 	//scanf("%d", &n);
+	// 	//printf("%ld\n", dp[n]);
+	// 	cin>>n;
+	// 	cout<<dp[n]<<endl;
+	// }
 }

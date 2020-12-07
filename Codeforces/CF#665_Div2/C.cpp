@@ -195,69 +195,49 @@ void printSet(unordered_set<string> s){
 		cout<<(*it)<<" ";
 	}cout<<endl;
 }
+int mi=mod;
 int main(){
-	/*ios_base::sync_with_stdio(false);
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
 	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/input.txt", "r", stdin);
 	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/output.txt", "w", stdout);
-	#endif*/
+	#endif
 	int t=1;
-	//scanf("%d", &t);
+	//cin>>t;
 	while(t--){
+		mi=mod;
 		solve();
 	}
 	return 0;
 }
-
-vvll matmult(vvll res, vvll a, int m, int n){
-	vvll x(n, vll(n, 0));
-	int i,j,k;
-	for(i=0;i<n;i++){
-		for(j=0;j<n;j++){
-			for(k=0;k<n;k++){
-				x[i][j]=(x[i][j] + (res[i][k]*a[k][j])%m)%m;
-			}
-		}
+bool comp(int &a, int &b){
+	if(a<=b){
+		return true;
 	}
-	return x;
+	if(a>b && __gcd(a,b)==mi){
+		//swap(a,b);
+		return false;
+	}
+	return false;
 }
-
 void solve(){
-	while(1){
-		int d, n, m;
-		cin>>d>>n>>m;
-		if(d==0 && n==0 && m==0)
-			return;
-		vvll res(d, vll(d, 0));
-		vvll a(d, vll(d, 0));
-		vll b(d);
-		for(int i=0;i<d;i++){
-			cin>>a[0][i];
-			res[i][i]=1;
-			if(i>0){
-				a[i][i-1]=1;
-			}
-		}
-		for(int i=d-1;i>=0;i--){
-			cin>>b[i];
-		}
-		if(n<=d){
-			cout<<b[n-1]<<endl;
-			continue;
-		}
-		n-=d;
-		while(n>0){
-			if(n&1){
-				res=matmult(res, a, m, d);
-			}
-			n>>=1;
-			a=matmult(a, a, m, d);
-		}
-		ll ans=0;
-		for(int i=0;i<d;i++){
-			ans=(ans + (res[0][i]*b[i])%m)%m;
-		}
-		cout<<ans<<endl;
+	int i, j, n;
+	cin>>n;
+	int arr[n];
+	for(i=0;i<n;i++){
+		cin>>arr[i];
 	}
+	printMat(arr, n);
+	mi=*min_element(arr, arr + n);
+	cout<<mi<<endl;
+	sort(arr, arr + n, comp);
+	printMat(arr, n);
+	for(i=1;i<n;i++){
+		if(arr[i]<arr[i-1]){
+			cout<<"NO"<<endl;
+			return;
+		}
+	}
+	cout<<"YES"<<endl;
 }

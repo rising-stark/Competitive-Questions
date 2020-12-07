@@ -203,61 +203,45 @@ int main(){
 	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/output.txt", "w", stdout);
 	#endif*/
 	int t=1;
-	//scanf("%d", &t);
+	cin>>t;
 	while(t--){
 		solve();
 	}
 	return 0;
 }
-
-vvll matmult(vvll res, vvll a, int m, int n){
-	vvll x(n, vll(n, 0));
-	int i,j,k;
-	for(i=0;i<n;i++){
-		for(j=0;j<n;j++){
-			for(k=0;k<n;k++){
-				x[i][j]=(x[i][j] + (res[i][k]*a[k][j])%m)%m;
-			}
-		}
-	}
-	return x;
-}
-
 void solve(){
-	while(1){
-		int d, n, m;
-		cin>>d>>n>>m;
-		if(d==0 && n==0 && m==0)
-			return;
-		vvll res(d, vll(d, 0));
-		vvll a(d, vll(d, 0));
-		vll b(d);
-		for(int i=0;i<d;i++){
-			cin>>a[0][i];
-			res[i][i]=1;
-			if(i>0){
-				a[i][i-1]=1;
+	static int t=0;
+	t++;
+	int i, j, n;
+	string s;
+	cin>>s;
+	int a=0,b=0;
+	ll ans=0;
+	int len=s.length();
+	size_t f=0;
+
+
+	for(i=0;i<len;i++){
+		if(i+3 <len){
+			string x="";
+			//x+=s[i]+s[i+1]+s[i+2]+s[i+3];
+			x=s.substr(i,4);
+			//cout<<x<<endl;
+			if(x=="KICK"){
+				//cout<<"i  = "<<i<<endl;
+				a++;
+				i+=3;
 			}
 		}
-		for(int i=d-1;i>=0;i--){
-			cin>>b[i];
-		}
-		if(n<=d){
-			cout<<b[n-1]<<endl;
-			continue;
-		}
-		n-=d;
-		while(n>0){
-			if(n&1){
-				res=matmult(res, a, m, d);
+		if(i+4 <len){
+			string x="";
+			x=s.substr(i,5);
+			if(x=="START"){
+				//cout<<"i  = "<<i<<endl;
+				ans+=a;
+				i+=5;
 			}
-			n>>=1;
-			a=matmult(a, a, m, d);
 		}
-		ll ans=0;
-		for(int i=0;i<d;i++){
-			ans=(ans + (res[0][i]*b[i])%m)%m;
-		}
-		cout<<ans<<endl;
 	}
+	cout<<"Case #"<<t<<": "<<ans<<endl;	
 }

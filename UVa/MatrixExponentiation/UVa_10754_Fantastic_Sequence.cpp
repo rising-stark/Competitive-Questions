@@ -13,9 +13,9 @@
 #define maxx(a,b,c) max(a, max(b,c))
 #define minn(a,b,c) min(a, min(b,c))
 using namespace std;
-const int mod=1e9+7;
+const ll mod=1e9+7;
 const int inf = (1<<30);
-void solve();
+void solve1();
 string toBin(ll a);
 void printMat(int arr[], int n);
 void printMat(vector<int> arr, int n);
@@ -195,69 +195,80 @@ void printSet(unordered_set<string> s){
 		cout<<(*it)<<" ";
 	}cout<<endl;
 }
+
 int main(){
-	/*ios_base::sync_with_stdio(false);
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
 	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/input.txt", "r", stdin);
 	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/output.txt", "w", stdout);
-	#endif*/
+	#endif
 	int t=1;
-	//scanf("%d", &t);
-	while(t--){
-		solve();
+	cin>>t;
+	for(int i=0;i<t-1;i++){
+		solve1();
+		printf("\n\n");
 	}
+	solve1();
+	printf("\n");
 	return 0;
 }
 
-vvll matmult(vvll res, vvll a, int m, int n){
+vvll matmult(vvll res, vvll a, ll m, ll n){
 	vvll x(n, vll(n, 0));
-	int i,j,k;
+	ll i, j, k;
 	for(i=0;i<n;i++){
 		for(j=0;j<n;j++){
 			for(k=0;k<n;k++){
-				x[i][j]=(x[i][j] + (res[i][k]*a[k][j])%m)%m;
+				x[i][j]=(x[i][j] + mod*m+ (res[i][k]*a[k][j])%m)%m;
 			}
 		}
 	}
 	return x;
 }
 
-void solve(){
-	while(1){
-		int d, n, m;
-		cin>>d>>n>>m;
-		if(d==0 && n==0 && m==0)
-			return;
-		vvll res(d, vll(d, 0));
-		vvll a(d, vll(d, 0));
-		vll b(d);
-		for(int i=0;i<d;i++){
-			cin>>a[0][i];
-			res[i][i]=1;
-			if(i>0){
-				a[i][i-1]=1;
-			}
-		}
-		for(int i=d-1;i>=0;i--){
-			cin>>b[i];
-		}
-		if(n<=d){
-			cout<<b[n-1]<<endl;
-			continue;
-		}
-		n-=d;
-		while(n>0){
-			if(n&1){
-				res=matmult(res, a, m, d);
-			}
-			n>>=1;
-			a=matmult(a, a, m, d);
-		}
-		ll ans=0;
-		for(int i=0;i<d;i++){
-			ans=(ans + (res[0][i]*b[i])%m)%m;
-		}
-		cout<<ans<<endl;
+void solve1(){
+	ll i, j, n, m, k;
+	cin>>k>>m>>n;
+	if(k==0){
+		ll x;
+		cin>>x;
+		printf("%d",(x + mod*m)%m);
+		return;
 	}
+	vvll res(k+1, vll(k+1, 0));
+	vvll a(k+1, vll(k+1, 0));
+	vll b(k, 0);
+	for(i=0;i<=k;i++){
+		cin>>a[0][i];
+		res[i][i]=1;
+		if(i>0){
+			a[i][i-1]=1;
+		}
+	}
+	a[k][k]=1;
+	a[k][k-1]=0;
+	for(i=k-1;i>=0;i--){
+		cin>>b[i];
+	}
+
+	if(n<k){
+		reverse(ALL(b));
+		printf("%d",(b[n] + mod*m)%m);
+		return;
+	}
+	n-=k-1;
+	while(n>0){
+		if(n&1){
+			res=matmult(res, a, m, k+1);
+		}
+		n>>=1;
+		a=matmult(a, a, m, k+1);
+	}
+	ll ans=0;
+	for(i=0;i<k;i++){
+		ans=(ans+ mod*m+ (res[0][i]*b[i])%m)%m;
+	}
+	ans=(ans + mod*m+ res[0][k])%m;
+	printf("%d",(ans + mod*m)%m);
 }
