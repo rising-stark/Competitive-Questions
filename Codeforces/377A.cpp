@@ -1,58 +1,30 @@
-/*
-
-The solution/logic is contained in void solve() function at the bottom.
-Above it is main() function which simply calls the solve() function.
-https://www.spoj.com/problems/TDKPRIME/
-
-DKPRIME - Finding the Kth Prime
-#sieve-of-eratosthenes
-The problem statement is really simple. There are some queries. You are to give the answers.
-
-Input
-An integer stating the number of queries Q(equal to 50000), and Q lines follow, each containing one integer K between 1 and 5000000 inclusive.
-
-Output
-Q lines with the answer of each query: the Kth prime number.
-
-Example
-Input:
-7
-1
-10
-100
-1000
-10000
-100000
-1000000
-
-Output:
-2
-29
-541
-7919
-104729
-1299709
-15485863
-
-
-*/
-
 #include<bits/stdc++.h>
 #define ll long long int
 #define pb push_back
+#define vi vector<int>
+#define vll vector<ll>
+#define vvi vector<vector<int> >
+#define vvll vector<vector<ll> >
+#define pii pair<int, int>
+#define pll pair<ll, ll>
+#define pis pair<int, string>
+#define psi pair<string, int>
 #define ALL(x) x.begin(), x.end()
 #define maxx(a,b,c) max(a, max(b,c))
 #define minn(a,b,c) min(a, min(b,c))
 using namespace std;
 const int mod=1e9+7;
 const int inf = (1<<30);
+void solve();
 string toBin(ll a);
 void printMat(int arr[], int n);
 void printMat(vector<int> arr, int n);
 void printMat(vector<vector<int> > arr, int n, int m);
+void printMat(vector<vector<ll> > arr, int n, int m);
 void printMat(vector<int> arr[], int n);
-void solve();
-//void printMat(int arr[][], int n, int m);
+void printMat(vector<ll> arr[], int n);
+void printMat(int arr[][2], int n, int m);
+void printMat(ll arr[][2], int n, int m);
 void printMap(unordered_map<int, int> mp);
 void printMap(unordered_map<ll, ll> mp);
 void printMap(unordered_map<char, int> mp);
@@ -99,6 +71,20 @@ void printMat(vector<int> arr[], int row, int col){
 	}cout<<endl;
 }
 void printMat(vector<vector<int> > arr, int row, int col){
+	for(int i=0;i<row;i++){
+		for(int j=0;j<col;j++){
+			cout<<arr[i][j]<<" ";
+		}cout<<endl;
+	}cout<<endl;
+}
+void printMat(vector<vector<ll> > arr, int row, int col){
+	for(int i=0;i<row;i++){
+		for(int j=0;j<col;j++){
+			cout<<arr[i][j]<<" ";
+		}cout<<endl;
+	}cout<<endl;
+}
+void printMat(ll arr[][2], int row, int col){
 	for(int i=0;i<row;i++){
 		for(int j=0;j<col;j++){
 			cout<<arr[i][j]<<" ";
@@ -209,45 +195,27 @@ void printSet(unordered_set<string> s){
 		cout<<(*it)<<" ";
 	}cout<<endl;
 }
-int main()
-{
-	/*ios_base::sync_with_stdio(false);
+int main(){
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
-	freopen("../input.txt", "r", stdin);
-	freopen("../output.txt", "w", stdout);
-	#endif*/
-	int t;
+	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/input.txt", "r", stdin);
+	freopen("C:/Users/ujjwa/Desktop/Practice/code/Competitive-Questions/output.txt", "w", stdout);
+	#endif
+	int t=1;
+	//scanf("%d", &t);
 	//cin>>t;
-	t=1;
 	while(t--){
 		solve();
 	}
 	return 0;
 }
 void solve(){
-	int q;
-	vector<bool> arr(90000000, 0);
-	vector<int> prime;
 	int i, j, n;
-	n=90000000;
-	arr[0]=arr[1]=1;
-	for(i=2;i*i<=n;i++){
-		for(j=i*i;arr[i]==0 && j<=n;j+=i){
-			arr[j]=1;
-		}
+	cin>>n;
+	int arr[n];
+	for(i=0;i<n;i++){
+		cin>>arr[i];
 	}
-	int c=0;
-	prime.pb(2);
-	for(i=3;i<=n;i+=2){
-		if(arr[i]==0){
-			prime.pb(i);
-		}
-	}
-	cin>>q;
-	while(q--){
-		int k;
-		cin>>k;
-		cout<<prime[k-1]<<endl;
-	}
+	
 }
