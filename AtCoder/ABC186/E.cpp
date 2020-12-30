@@ -46,22 +46,20 @@ ll gcd(ll a, ll b, ll& x, ll& y) {
     return d;
 }
 
-void solve(){
+void solve(){ //Kx = -S (mod N)
 	ll n,s,k;
 	cin>>n>>s>>k;
-	ll a,b,c;
-	ll x0=0, y0=0, g=1;
-	a=k;
-	b=n;
-	c=n-s;
-	g = gcd(a, b, x0, y0);
-    if (c % g) {
-        cout<<-1<<endl;
-        return;
-    }
-    x0 *= c / g;
-    y0 *= c / g;
-   // cout<<x0<<endl;
-    x0=(x0%n+n)%n;
-    cout<<x0<<endl;
+	s=-s;
+	ll g = __gcd(k, n);
+	if(s%g!=0){
+		cout<<-1<<endl;
+		return;
+	}
+	k/=g;
+	n/=g;
+	s/=g;
+	ll x, y;
+	gcd(k, n, x, y);
+	ll ans = (((s%n)*(x%n))%n + n)%n;
+	cout<<(ans*g)%n<<endl;
 }
