@@ -207,18 +207,14 @@ int main(){
 	}
 	solve();
 	for(int i=0;i<t;i++){
-		//cout<<"Case "<<(i+1)<<": ";
+		cout<<"Case "<<(i+1)<<": ";
 		int sum;
 		cin>>sum;
 		int n = primes.size();
-		int ans = 0;
 		if(dp[n%2][sum]>=(INT_MAX/2)){
-			ans=-1;
+			cout<<-1<<endl;
 		}else{
-			ans = dp[n%2][sum];
-		}
-		if(ans > 3){
-			cout<<"Ans = "<<ans<<" Sum = "<<sum<<endl;
+			cout<<dp[n%2][sum]<<endl;
 		}
 	}
 	if(stress==1){compare();}
