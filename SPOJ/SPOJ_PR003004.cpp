@@ -60,6 +60,7 @@ inline bool isupper(char c){if(c>='A' && c<='Z')return true;return false;}
 inline bool islower(char c){if(c>='a' && c<='z')return true;return false;}
 void solve(ll, ll);
 
+ll dp[20][200];
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	#ifndef ONLINE_JUDGE
@@ -68,6 +69,7 @@ int main(){
 	#endif
 	int t;
 	cin>>t;
+	mem;
 	ll a, b;
 	cin>>a>>b;
 	while(t--){
@@ -76,30 +78,35 @@ int main(){
 	}
 	return 0;
 }
-ll dp[20][200][2];
+
 ll recur(string &arr, int i, ll sum, int t){
-	if(i==arr.size()){
+	if(i==0){
 		return sum;
 	}
-	if(dp[i][sum][t]!=-1){
-		return dp[i][sum][t];
+	if(dp[i][sum]!=-1 && !t){
+		return dp[i][sum];
 	}
 	int lmt = t?arr[i]-'0':9;
 	ll ans = 0;
 	for(int j=0;j<=lmt;j++){
-		ans += recur(arr, i+1, sum+j, t&(j==lmt));
+		ans += recur(arr, i-1, sum+j, t&(j==lmt));
 	}
-	return dp[i][sum][t]= ans;
+	if(!t){
+		dp[i][sum]= ans;
+	}
+	return ans;
 }
 void solve(ll a, ll b){
-	mem;
 	string bs=to_string(b);
-	ll ans = recur(bs, 0, 0, 1);
+	bs+="0";
+	reverse(all(bs));
+	ll ans = recur(bs, bs.size()-1, 0, 1);
 	ll ans1 = 0;
 	if(a>0){
-		mem;
 		string as=to_string(a-1);
-		ans1 = recur(as, 0, 0, 1);
+		as+="0";
+		reverse(all(as));
+		ans1 = recur(as, as.size()-1, 0, 1);
 	}
 	cout<<ans-ans1<<endl;
 }
