@@ -218,6 +218,7 @@ int main(){
 }
 
 ll recur(string &arr, int i, int c3, int c6, int c9, int t){
+	int n = (int)arr.size();
 	if(c3>17 || c6>17 || c9>17){
 		return 0;
 	}
@@ -227,7 +228,7 @@ ll recur(string &arr, int i, int c3, int c6, int c9, int t){
 	if(dp[i][c3][c6][c9]!=-1 && !t){
 		return dp[i][c3][c6][c9];
 	}
-	int lmt = t?arr[i]-'0':9;
+	int lmt = t?arr[n-i]-'0':9;
 	ll ans = 0;
 	for(int j=0;j<=lmt;j++){
 		ans = (ans+recur(arr, i-1, c3+(j==3), c6+(j==6), c9+(j==9), t&(j==lmt)))%mod;
@@ -239,12 +240,8 @@ ll recur(string &arr, int i, int c3, int c6, int c9, int t){
 void solve(){
 	string a, b;
 	cin>>a>>b;
-	b+="0";
-	a+="0";
-	reverse(all(b));
-	reverse(all(a));
-	ll ans = recur(b, b.size()-1, 0, 0, 0, 1);
-	ll ans1 = recur(a, a.size()-1, 0, 0, 0, 1);
+	ll ans = recur(b, b.size(), 0, 0, 0, 1);
+	ll ans1 = recur(a, a.size(), 0, 0, 0, 1);
 	int c[3]={0};
 	for(int i=0;i<a.size();i++){
 		c[0]+=a[i]=='3';
