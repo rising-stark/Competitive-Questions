@@ -1,7 +1,6 @@
-input.txt
-output.txt
-test.cpp
-commit.py
+test.*
+*.txt
+*.py
 *.exe
 *.jpg
 Random/
