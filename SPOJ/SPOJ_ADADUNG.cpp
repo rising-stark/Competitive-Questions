@@ -174,33 +174,21 @@ void printSet(unordered_set<string> s){
 }
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	#ifndef ONLINE_JUDGE
-	freopen("../input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
 	solve();
 	return 0;
 }
-ll dp[10001];
+ll dp[10000001];
 void solve(){
-	ll i, j, n;
-	int t;
-	//scanf("%d", &t);
-	cin>>t;
-	n=10001;
+	int i, j, n, t;
+	scanf("%d", &t);
 	dp[2]=1;
 	dp[3]=2;
-	for(i=4;i<n;i++){
-		dp[i]=((i-1)*1LL*((dp[i-1]+dp[i-2])%mod))%mod;
+	for(i=4;i<10000001;i++){
+		dp[i]=((i-1)*1LL*((dp[i-2]+dp[i-1])%mod))%mod;
 	}
-	cout<<t<<endl;
-	// while(t--){
-	// 	int n;
-	// 	//scanf("%d", &n);
-	// 	//printf("%ld\n", dp[n]);
-	// 	cin>>n;
-	// 	cout<<dp[n]<<endl;
-	// }
+	while(t--){
+		int n;
+		scanf("%d", &n);
+		printf("%ld\n", dp[n]);
+	}
 }
