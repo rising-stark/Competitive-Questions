@@ -115,6 +115,47 @@ int main(){
 	return 0;
 }
 
+/*
+Detecting negative cycle using Bellman-Ford with time comlpexity of O(nm)
+Gotchas:
+	The standard implementation looks for a negative cycle reachable from some starting vertex v.
+	However, the question required detecting any negative cycle in the graph.
+	For this we need to put all the distance dp[i] to zero and not infinity i.e.,
+	as if we are looking for the shortest path from all vertices simultaneously.
+	The validity of the detection of a negative cycle is not affected.
+*/
+
+void solve(int n, int m){
+	ll i, j, k;
+	vll dp(n,0); // Note here the initialization to 0 instead of inf
+	vector<tri> edge;
+	forj{
+		int x, y, z;
+		cin>>x>>y>>z;
+		x--;y--;
+		edge.pb({x,y,z});
+		edge.pb({y,x,-z});
+	}//cout<<edge;
+	bool flag = false;
+	fori{
+		flag = false;
+		for(j=0;j<2*m;j++){
+			if(dp[edge[j].x]!=inf){
+				if(dp[edge[j].y] > dp[edge[j].x]+edge[j].z){
+					dp[edge[j].y] = dp[edge[j].x]+edge[j].z;
+					flag=true;
+				}
+			}
+		}
+	}
+	cout<<(flag?'Y':'N')<<endl;
+}
+
+
+
+/*
+Detecting negative cycle using floyd warshall with time comlpexity of O(n^3)
+
 void solve(int n, int m){
 	ll i, j, k;
 
@@ -139,4 +180,4 @@ void solve(int n, int m){
 	bool flag=false;
 	fori if(dp[i][i]<0)flag=true;
 	cout<<(flag?'Y':'N')<<endl;
-}
+}*/
