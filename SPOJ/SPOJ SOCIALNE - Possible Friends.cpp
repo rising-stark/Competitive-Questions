@@ -76,8 +76,22 @@ inline bool ispow2(ll i){return i && (i & -i) == i;}
 inline bool isdigit(char c){if(c>='0' && c<='9')return true;return false;}
 inline bool isupper(char c){if(c>='A' && c<='Z')return true;return false;}
 inline bool islower(char c){if(c>='a' && c<='z')return true;return false;}
-void solve(int, int);
+void solve();
 
+ll binsearch(ll l, ll r, vll arr, ll x){
+	ll ans=0;
+	while(l<=r){
+		ll m = l+((r-l)>>1);
+		if(m){
+			//ans=max(ans, m);
+			l=m+1;
+		}else{
+			//ans=min(ans, m);
+			r=m-1;
+		}
+	}
+	return ans;
+}
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	#ifndef ONLINE_JUDGE
@@ -86,138 +100,55 @@ int main(){
 	#endif
 	int t=1;
 	//int stress = 1;
-	//cin>>t;
+	cin>>t;
 	//cout<<t<<endl;
 	//generateSieve();
 
-	ll i=0, j, n, m;
-	cin>>n>>m;
-	while(n && m){
-		cout<<"Scenario #"<<(++i)<<endl;
-		solve(n,m);
-		cin>>n>>m;
+	for(int i=0;i<t;i++){
+		//cout<<"Case "<<(++i)<<": ";
+		solve();
 	}
 	//if(stress==1){compare();}
 	return 0;
 }
 
-/*
-I was trying to solve the problem UVa 10099 - The Tourist Guide.
-At last is the Floyd-Warshall algorithm which was able to solve the problem in O(n^3).
-Below is the solved the problem using this:
+void solve(){
+	ll i, j, k, n;
+	string s;
+	if(!(cin>>s)){
+		return;
+	}
+	n=(int)s.size();
+	vvll dp(n, vll(n, 0));
+	vvll dp1(n, vll(n, 0));
 
-		Here is an easy and efficient way:
-
-		Let MAX be the maximum edge weight in the graph.
-		Binary search 0 <= k <= MAX such that you can get from A to F using only edges
-		with weights >= k. You can use a breadth first search to see if this is possible
-		(don't take an edge if its weight is too small).
-
-		This gives an O((X + Y) log V) algorithm, where V is the range of your weights.
-
- 
- with a much better time complexity of O((E + V) log MAX) where MAX is the range of weights
- in the graph.
-*/
-vpll adj[101];
-bool bfs(ll s, ll d, ll x){
-	vector<bool> vis(101, false);
-	queue<pll> q;
-	q.push({s, INT_MAX});
-	int flag = 0;
-	ll ans = 2;
-	while(!q.empty()){
-		pll temp = q.front();
-		q.pop();
-		if(temp.ff == d){
-			flag=1;
-			ans = max(ans, temp.ss);
-			continue;
-		}
-		for(auto v:adj[temp.ff]){
-			if(!vis[v.ff] && v.ss>=x){
-				vis[v.ff]=1;
-				q.push({v.ff, min(temp.ss, v.ss)});
+	fori{
+		int m =n;
+		if(i>0)
+			cin>>s;
+		forj dp[i][j]=s[j]=='Y';
+	}
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if(dp[i][j]){
+				for(k=0;k<n;k++){
+					if(i!=k && !dp[i][k])
+						dp1[i][k]|=dp[j][k];
+				}
 			}
 		}
 	}
-	return flag;
-}
-void solve(int n, int m){
-	for(int i=0;i<=100;i++){
-		adj[i].clear();
-	}
-	ll ans = 2;
-	ll low = 0, high = 0;
-	while(m--){
-		ll x, y, z;
-		cin>>x>>y>>z;
-		x--;y--;
-		adj[x].pb({y, z});
-		swap(x, y);
-		adj[x].pb({y, z});
-		high=max(high, z);
-	}
-	high++;
-	ll s, d, t;
-	cin>>s>>d>>t;
-	s--;d--;
-	while(low<=high){
-		ll mid = low+ ((high-low)>>1);
-		bool x = bfs(s, d, mid);
-		if(x){
-			ans = mid;
-			low=mid+1;
-		}else{
-			high=mid-1;
+	int ans =0;int mm=-1;
+	fori{
+		int m =n;
+		int cur=0;
+		forj{
+			cur+=dp1[i][j];
+		}//w(cur);
+		if(mm<cur){
+			ans=i;
+			mm=cur;
 		}
 	}
-	ans--;
-	cout<<"Minimum Number of Trips = ";
-	cout<<ceil(t*1.0/ans)<<endl<<endl;
+	cout<<ans<<" "<<mm<<endl;
 }
-
-
-/*
-ll binsearch(ll l, ll r, ll t, ll x){
-	ll ans=r;
-	while(l<=r){
-		ll curtrips = l+((r-l)>>1);
-		ll tripsreq = (ll)ceil((t+curtrips)*1.0/x);
-		if(tripsreq>curtrips){
-			//ans=max(ans, m);
-			l=curtrips+1;
-		}else{
-			ans=min(ans, curtrips);
-			r=curtrips-1;
-		}
-	}
-	return ans;
-}
-void solve(int n, int m){
-	ll i, j, k;
-	ll dist[n+1][n+1];
-	memset(dist, 0, sizeof dist);
-	while(m--){
-		int x, y, z;
-		cin>>x>>y>>z;
-		x--;y--;
-		dist[x][y]=z;
-		dist[y][x]=z;
-	}
-	ll s, d, t;
-	cin>>s>>d>>t;
-	s--;d--;
-	for(k=0;k<n;k++){
-		for(i=0;i<n;i++){
-			for(j=0;j<n;j++){
-				dist[i][j] = max(dist[i][j], min(dist[i][k], dist[k][j]));
-			}
-		}
-	}
-	dist[s][d]--;
-	cout<<"Minimum Number of Trips = ";
-	//cout<<binsearch(t*1.0/dist[s][d], t, t, dist[s][d])<<endl<<endl;
-	cout<<ceil(t*1.0/dist[s][d])<<endl<<endl;
-}
-*/
