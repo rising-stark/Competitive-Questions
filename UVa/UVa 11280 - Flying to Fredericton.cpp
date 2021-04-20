@@ -126,6 +126,52 @@ int main(){
 	//if(stress==1){compare();}
 	return 0;
 }
+
+// Bellman Ford algorithm with improved time-complexity of O(EK)
+// Space complexity of O(2n)
+
+void solve(){
+	ll i, j, k, n;
+	cin>>n;
+	map<string, int> mp;
+	fori{
+		string s;
+		cin>>s;
+		mp[s]=i;
+	}
+	int m;
+	cin>>m;
+	vector<tri> edges(m);
+	forj{
+		string a, b;
+		int z;
+		cin>>a>>b>>z;
+		edges[j] = {mp[a], mp[b], z};
+	}
+	int q;
+	cin>>q;
+	while(q--){
+		int k;
+		cin>>k;
+		k++;k++;
+		vvll dp(2, vll(n, inf));
+		dp[0][0]=0;
+		dp[1][0]=0;
+		for(i=1;i<=k;i++){
+			for(auto e:edges){
+				cmin(dp[i&1][e.y], dp[(i+1)&1][e.x] + e.z);
+			}
+		}
+		string s = "Total cost of flight(s) is $"+to_string(dp[i&1][n-1]);
+		cout<<(dp[i&1][n-1]==inf?"No satisfactory flights":s)<<endl;
+	}
+}
+
+/*
+
+// Floyd-Warshall algorithm with time complexity of O(V^3 logk).
+// Space complexity of O(2n * 2n)
+
 vvll matmult(const vvll &a, const vvll &b){
 	int i, j, k, p, q, r;
 	p = (int)a.size();
@@ -191,3 +237,4 @@ void solve(){
 			cout<<"Total cost of flight(s) is $"<<ans<<endl;
 	}
 }
+*/
